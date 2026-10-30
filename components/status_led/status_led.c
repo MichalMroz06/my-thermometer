@@ -1,8 +1,9 @@
 // C packages:
 #include <stdio.h> // USES - basic C operations
-#include <stdbool.h> // USES - bool operations
 
 // ESP-IDF and hardware packages:
+#include "freertos/FreeRTOS.h" // USES - creating and declaring freertos functionalities
+#include "freertos/task.h" // USES - creating async freertos tasks
 #include <esp_log.h> // USES - pushing logs into console
 #include "esp_err.h" // USES - checking if configuration of LED was successful
 #include <led_strip.h> // USES - configuration and usage of RGB LED
@@ -13,22 +14,45 @@
 
 
 static const char *TAG = "my-thermometer";
+static led_state_t current_state = LED_STATE_IDLE;
+static led_strip_handle_t led_strip = NULL;
 
 #define LED_GPIO  48 // Default pin for built-in ESP-32-S3 N16R8 DevKitC 1
 #define LED_NUM  1 // Number of LEDs
 
-static led_strip_handle_t led_strip;
-
-float brightness = 0.15f;
-
-uint8_t diamed_red;
-uint8_t diamed_green;
-uint8_t diamed_blue;
-
-void led_configuration(void)
+static void led_task(void *pvParameter)
 {
-    ESP_LOGI(TAG, "Configuring RGB LED on pin: %d.", LED_GPIO);
+    while (1) {
+        switch (current_state) {
+            case LED_STATE_ERROR: // Red blink
+                led_strip_set_pixel(led_strip, 0, 50, 0, 0);
+                led_strip_refresh(led_strip);
+                vTaskDelay(pdMS_TO_TICKS(500));
 
+                led_strip_set_pixel(led_strip, 0, 0, 0, 0);
+                led_strip_refresh(led_strip);
+                vTaskDelay(pdMS_TO_TICKS(500));
+                break;
+            case LED_STATE_CONNECTED: // Green static
+                led_strip_set_pixel(led_strip, 0, 0, 30, 0);
+                led_strip_refresh(led_strip);
+                //vTaskDelay(pdMS_TO_TICKS(1000));
+                break;
+            case LED_STATE_OFF: // Turn off
+                led_strip_clear(led_strip);
+                break;
+            case LED_STATE_IDLE: // Blue static
+            default:
+                led_strip_set_pixel(led_strip, 0, 0, 0, 30);
+                led_strip_refresh(led_strip);
+                //vTaskDelay(pdMS_TO_TICKS(1000));
+                break;
+        }
+    }
+}
+
+void status_led_init(void)
+{
     led_strip_config_t strip_config = {
         .strip_gpio_num = LED_GPIO,
         .max_leds = LED_NUM,
@@ -48,21 +72,13 @@ void led_configuration(void)
     };
 
     ESP_ERROR_CHECK(led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip));
-
     ESP_ERROR_CHECK(led_strip_clear(led_strip));
+
+    xTaskCreate(led_task, "led_task", 2048, NULL, 5, NULL);
+    ESP_LOGI(TAG, "Status LED initialized on %d pin.", LED_GPIO);
 }
 
-void dispaly_led_strip(int color[])
+void status_led_set_state(led_state_t state)
 {
-    diamed_red = (uint8_t)(color[0] * brightness);
-    diamed_green = (uint8_t)(color[1] * brightness);
-    diamed_blue = (uint8_t)(color[2] * brightness);
-
-    ESP_ERROR_CHECK(led_strip_set_pixel(led_strip, 0, diamed_red, diamed_green, diamed_blue));
-    ESP_ERROR_CHECK(led_strip_refresh(led_strip));
-}
-
-void clear_led_strip(void)
-{
-    ESP_ERROR_CHECK(led_strip_clear(led_strip));
+    current_state = state;
 }
