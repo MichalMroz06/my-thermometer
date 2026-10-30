@@ -1,0 +1,10 @@
+# ESP-IDF Build directories
+/build/
+/cmake-build-debug/
+cmake-build-*/
+
+# IDE configuration files
+.idea/
+
+# Old copy of ESP-IDF configuration
+sdkconfig.old

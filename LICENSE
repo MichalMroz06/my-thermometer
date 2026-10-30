@@ -1,0 +1,25 @@
+NON-COMMERCIAL SOFTWARE LICENSE AGREEMENT & MODIFICATION POLICY
+ESP32 Temperature & Wi-Fi Monitor
+
+Copyright (c) 2026 Author / Developer. All rights reserved.
+
+By downloading, installing, accessing, or using this software ("ESP32 Temperature & Wi-Fi Monitor") and its associated source code, components, and documentation, you agree to be bound by the terms of this License.
+    1. Permitted Uses
+    Personal & Non-Commercial Use: You are granted a limited, worldwide, non-exclusive, non-transferable, free-of-charge license to download, install, build, and run the firmware for your personal, educational, learning, and non-commercial purposes.
+    Viewing Source: You may view the public source code and component architecture for educational and personal evaluation purposes.
+    Modifications & Forks for GitHub: You are permitted to fork, edit, modify, and write additional code to create modifications (mods), custom drivers, or derivative works, strictly under the condition that:
+        1. Your modified version or fork is made publicly available exclusively on the GitHub platform.
+        2. Your modified version or fork is distributed under this exact same Non-Commercial License.
+        3. No commercial profit, monetization, or paid access of any kind is associated with your modified version.
+
+    2. Restrictions
+    You MAY NOT:
+    Commercial Use: Use, distribute, or exploit this software, its firmware binaries, its source code, its custom components, or any modifications thereof for any commercial purposes, profit-making activities, or as part of a paid service/product.
+    Closed-Source Redistribution: Distribute modified versions, ports, or derivative works privately, or host them on platforms other than GitHub as proprietary code.
+    Asset & Component Extraction for Other Projects: Extract, reuse, or export individual proprietary components or specific documentation to use them in standalone commercial projects or products outside of official ESP32 Temperature & Wi-Fi Monitor forks.
+
+    3. Intellectual Property
+    All rights, title, and interest in and to the original software, including but not limited to the component architecture, custom code logic, documentation, and core source code, remain the exclusive property of the author.
+
+    4. Disclaimer of Warranty
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
