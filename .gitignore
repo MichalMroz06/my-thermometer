@@ -1,7 +1,9 @@
 # ESP-IDF Build directories
 /build/
 /cmake-build-debug/
+/managed_components/
 cmake-build-*/
+dependencies.lock
 
 # IDE configuration files
 .idea/
