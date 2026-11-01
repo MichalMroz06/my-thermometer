@@ -25,27 +25,24 @@ static void led_task(void *pvParameter)
     while (1) {
         switch (current_state) {
             case LED_STATE_ERROR: // Red blink
-                led_strip_set_pixel(led_strip, 0, 50, 0, 0);
+                led_strip_set_pixel(led_strip, 0, 8, 0, 0);
                 led_strip_refresh(led_strip);
                 vTaskDelay(pdMS_TO_TICKS(500));
 
-                led_strip_set_pixel(led_strip, 0, 0, 0, 0);
-                led_strip_refresh(led_strip);
+                led_strip_clear(led_strip);
                 vTaskDelay(pdMS_TO_TICKS(500));
                 break;
             case LED_STATE_CONNECTED: // Green static
-                led_strip_set_pixel(led_strip, 0, 0, 30, 0);
+                led_strip_set_pixel(led_strip, 0, 0, 5, 0);
                 led_strip_refresh(led_strip);
-                //vTaskDelay(pdMS_TO_TICKS(1000));
                 break;
             case LED_STATE_OFF: // Turn off
                 led_strip_clear(led_strip);
                 break;
             case LED_STATE_IDLE: // Blue static
             default:
-                led_strip_set_pixel(led_strip, 0, 0, 0, 30);
+                led_strip_set_pixel(led_strip, 0, 0, 0, 6);
                 led_strip_refresh(led_strip);
-                //vTaskDelay(pdMS_TO_TICKS(1000));
                 break;
         }
     }
